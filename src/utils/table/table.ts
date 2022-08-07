@@ -1,3 +1,4 @@
+import { Action } from '@/utils/table/interface';
 // this class is responsible for generating datatable
 // we can say that this is the datatable kitchen
 import { serializeQuery , currency } from '@/utils/helpers/heleprs';
@@ -14,18 +15,14 @@ export default class Datatable{
     description?: string
     headers: TableHeader[]
     url:string
-    hasFilters:boolean = false
-    hasFooter:boolean = false
+    hasFilters = false
+    hasRequiredFilters = false
+    hasFooter = false
     data:any[] = []
-    search:string=""
-    searchable:boolean = false
-    loading:boolean = true
+    loading = true
     filters?:Form
-    error:boolean = false
-    hasPrice:boolean = false
-    hasEdit:boolean = false
-    hasCreate:boolean = false
-    hasView:boolean = false
+    error = false
+    actions?:Action[]
     totals:Totals[] = []
     public constructor(details:DatatableIntetrface){
         this.title = details.title
@@ -34,15 +31,11 @@ export default class Datatable{
         this.headers = details.headers
         this.url = details.url
         // because details is nullable so we use simple check to set this value
-        if(details.hasFooter) this.hasFooter  = details.hasFooter
-        if(details.searchable) this.searchable  = details.searchable
-        if(details.hasEdit) this.hasEdit  = details.hasEdit
-        if(details.hasPrice) this.hasPrice  = details.hasPrice
-        if(details.hasView) this.hasView  = details.hasView
-        if(details.hasCreate) this.hasCreate  = details.hasCreate
+        if(details.actions) this.actions  = details.actions
         if(details.filters){
             this.filters = details.filters
             this.hasFilters = true
+            this.hasRequiredFilters = details.filters.hasValidation
         }
         this.getData()
     }
@@ -91,16 +84,17 @@ export default class Datatable{
                         })
                         return i
                     })
-                } else if(this.hasPrice && !this.hasFooter) {
-                    data.map((i:any) => {
-                        this.headers.forEach((header:HeaderInterface) => {
-                            if(header.isPrice){
-                                i[header.key as keyof typeof data] = currency(i[header.key as keyof typeof res])
-                            }
-                        })
-                        return i
-                    })
-                }
+                } 
+                // else if(this.hasPrice && !this.hasFooter) {
+                //     data.map((i:any) => {
+                //         this.headers.forEach((header:HeaderInterface) => {
+                //             if(header.isPrice){
+                //                 i[header.key as keyof typeof data] = currency(i[header.key as keyof typeof res])
+                //             }
+                //         })
+                //         return i
+                //     })
+                // }
                 this.data  = data
                 this._reset()
                 resolve(res)        

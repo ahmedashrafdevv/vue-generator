@@ -1,6 +1,12 @@
 <template>
+  
   <v-container>
-    <v-skeleton-loader
+    <v-card>
+      <v-card-title class="bgdarker">
+        <span><v-icon>{{ form.icon }}</v-icon>       {{ form.title }}</span>
+      </v-card-title>
+      <v-card-text>
+         <v-skeleton-loader
       v-if="loading"
       type="article"
     ></v-skeleton-loader>
@@ -14,10 +20,11 @@
         <v-col cols="12">
           <v-alert
             border="bottom"
-            color="pink darken-1"
+            color="error darken-1"
             dark
+            class="mt-4"
             v-if="form.error"
-          > {{form.error}}</v-alert>
+          > {{$t(form.error)}}</v-alert>
         </v-col>
         <v-col
           :cols="input.field.cols"
@@ -41,8 +48,12 @@
             @click.prevent="submit()"
           >{{$t('submit')}}</v-btn>
         </v-col>
+        <slot name="form-submit"/>
       </v-row>
     </v-form>
+      </v-card-text>
+    </v-card>
+   
   </v-container>
 
 </template>

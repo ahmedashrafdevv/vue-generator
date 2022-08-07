@@ -1,11 +1,11 @@
-import { serializeQuery } from '@/utils/helpers';
-import { FormInterface, InputInterface, SelectInputInterface } from '../interface';
+import { serializeQuery } from '@/utils/helpers/heleprs';
+import {  InputInterface, SelectInputInterface } from '../interface';
 import Api from '@/utils/axios/Api';
 
 const Http = Api.getInstance();
 export default class Input {
     field: InputInterface
-    loading: boolean = false
+    loading = false
     constructor(field: InputInterface) {
         this.field = field
         this._init()

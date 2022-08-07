@@ -1,5 +1,5 @@
 <template>
-<td class="pa-4">
+<td class="pa-2">
     <v-menu
       bottom
       
@@ -8,7 +8,7 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          class="app-btn"
+          class="table-btn"
           dark
           v-bind="attrs"
           prepen

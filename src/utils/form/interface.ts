@@ -61,6 +61,8 @@ export type SelectInputInterface = {
 export type InputInterface = SelectInputInterface | DefaultInputInterface | DateInputInterface 
 
 export interface FormInterface {
+    title?:string,
+    icon?:string,
     inputs: Input[]
     loading?: boolean
     submit?: (form: any) => Promise<any>

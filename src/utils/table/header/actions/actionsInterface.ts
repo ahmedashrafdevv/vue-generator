@@ -7,5 +7,4 @@ export interface ActionsParamInterface {
     approve? : boolean
     pend? : boolean
     view? : boolean
-    respond? : boolean
 }

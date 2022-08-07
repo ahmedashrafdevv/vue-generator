@@ -10,9 +10,9 @@ export const Upload = (payload:Object) => {
                 'Content-Type': 'multipart/form-data'
             }
           })
-        .then((d) => {
+        .then((d:any) => {
             resolve(d)
-        }).catch(e => {
+        }).catch((e:any) => {
             reject(e)
         })
     })
@@ -24,9 +24,9 @@ export const Upload = (payload:Object) => {
 export const Delete = (payload:any) => {
     return new Promise((resolve, reject) => {
         Http.delete(`delete/${payload.table}/${payload.id}`)
-        .then((d) => {
+        .then((d:any) => {
             resolve(d)
-        }).catch(e => {
+        }).catch((e:any) => {
             reject(e)
         })
     })
@@ -37,9 +37,9 @@ export const Delete = (payload:any) => {
 export const DeleteFile = (path:string) => {
     return new Promise((resolve, reject) => {
         Http.post('delete/file' , {Path : path})
-        .then((d) => {
+        .then((d:any) => {
             resolve(d)
-        }).catch(e => {
+        }).catch((e:any) => {
             reject(e)
         })
     })
@@ -48,9 +48,9 @@ export const DeleteFile = (path:string) => {
 
 export const Counts = () => {
     return new Promise((resolve, reject) => {
-        Http.get('counts').then((d) => {
+        Http.get('counts').then((d:any) => {
             resolve(d)
-        }).catch(e => {
+        }).catch((e:any) => {
             reject(e)
         })
     })

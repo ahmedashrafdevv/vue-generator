@@ -17,15 +17,15 @@ export const numberWithCommas = (x: number) => {
   return val
 }
 export const generateColors = (n: number) => {
-  let c = colors
+  const c = colors
   c.length = n
   return c
 }
 
 export const clearNullValues = (obj: Object) => {
-  let clone = { ...obj }
+  const clone = { ...obj }
   Object.keys(clone).forEach((key) => {
-    let k = key as keyof typeof clone
+    const k = key as keyof typeof clone
     clone[k] === null || '' ? delete clone[k] : ''
   })
   return clone
@@ -101,7 +101,7 @@ export const getColor = (index: number) => {
 export const required = (v: any) => !!v || 'required'
 
 export const convertDate = (date :string) => {
-  let d = new Date(date);
+  const d = new Date(date);
   // const formattedDate = ` ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()} ${d.getFullYear()}-${d.getMonth()}-${d.getDay()}`
   const formattedDate = d.toUTCString()
   return formattedDate.substring(0 , formattedDate.length-3)

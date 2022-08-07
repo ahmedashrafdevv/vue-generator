@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import TextInputComponent from '../components/Text.vue'
+import TextInputComponent from '@/components/form/Text.vue'
 import { InputInterface } from '@/utils/form/interface';
-import { DefaultInputInterface, DateInputInterface, SelectInputInterface } from '../interface';
+import { DefaultInputInterface } from '../interface';
 import {  required } from "@/utils/validations/validations"
 
 

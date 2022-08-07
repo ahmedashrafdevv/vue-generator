@@ -24,9 +24,5 @@ export default interface DatatableIntetrface {
     searchable?:boolean
     headers: HeaderInterface[]
     filters?:Form
-    hasFooter?:boolean
-    hasEdit?:boolean
-    hasPrice?:boolean
-    hasView?:boolean
-    hasCreate?:boolean
+    actions?:Action[]
 }

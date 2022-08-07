@@ -1,6 +1,6 @@
 
-export const required = (val:string , msg:string = 'هذا الحقل مطلوب') => !!val || msg
-export const num = (val:string , msg:string = 'لابد ان يكون هذا الحقل رقم') => {
+export const required = (val:string , msg = 'هذا الحقل مطلوب') => !!val || msg
+export const num = (val:string , msg = 'لابد ان يكون هذا الحقل رقم') => {
     if (!val){
         return true
     }
@@ -10,7 +10,7 @@ export const num = (val:string , msg:string = 'لابد ان يكون هذا ا�
 
     return true
 }
-export const email = (val:string , msg:string = 'تحقق من البريد الالكتروني') => {
+export const email = (val:string , msg = 'تحقق من البريد الالكتروني') => {
     if (!val){
         return true
     }

@@ -25,7 +25,7 @@
                     {{ table.title }}
                   </span>
                   <div class="btns">
-                    <v-menu bottom v-if="table.hasActions" offset-y transition="scale-transition">
+                    <v-menu bottom v-if="table.actions" offset-y transition="scale-transition">
                       <template  v-slot:activator="{ on, attrs }">
                         <v-btn class="gr-bg" dark v-bind="attrs" prepen v-on="on">
                           <v-icon class="mr-3 ml-3"
@@ -42,7 +42,7 @@
                           @click.prevent="action.action"
                         >
                           <v-list-item-title
-                            ><v-icon class="mr-3 ml-3">action.icon</v-icon
+                            ><v-icon class="mr-3 ml-3">{{action.icon}}</v-icon
                             >{{ $t(action.title) }}</v-list-item-title
                           >
                         </v-list-item>
@@ -53,7 +53,7 @@
                   </div>
                 </div>
                 <div class="pa-4" v-if="table.hasFilters">
-                  <v-expansion-panels class="gr-bg">
+                  <v-expansion-panels class="gr-bg" v-model="filtersPanel">
                     <v-expansion-panel>
                       <v-expansion-panel-header>
                         <template v-slot:default>
@@ -93,7 +93,7 @@
             </template>
             <template
               v-slot:no-data
-              v-if="table.hasFilters && !table.filters.valid"
+              v-if="table.hasRequiredFilters"
             >
               {{ $t("select_data") }}
             </template>
@@ -120,15 +120,16 @@
             <template v-slot:[`item`]="{ item }">
               <tr>
                 <component
-                  v-for="(head, index) in table.headers"
-                  :key="index"
-                  :actions="head.actions"
-                  :item="item"
-                  :is="head.generateColumnHtml(item)"
-                ></component>
+                v-for="(head , index) in table.headers"
+                :key="index"
+                :is="head.generateColumnHtml()"
+                :actions="head.actions"
+                :item="item"
+                :item-key="head.key"
+              ></component>
               </tr>
-              <slot name="item-actions"/>
             </template>
+              <!-- <slot name="item-actions"/> -->
           </v-data-table>
         </v-col>
       </v-row>
@@ -174,7 +175,7 @@ import {
   getParamsFromLocation,
   currency
 } from "@/utils/helpers/heleprs";
-import AppForm from "@/utils/form/components/Form.vue";
+import AppForm from "@/components/form/Form.vue";
 import Vue from "vue";
 import { HeaderInterface } from "@/utils/table/header/headerInterface";
 export default Vue.extend({
@@ -203,13 +204,13 @@ export default Vue.extend({
         return header.isPrice ? header : "";
       });
     },
-    hasCategories(){
-      return this.table.title == 'videos' ||  this.table.title == 'projects' ||  this.table.title == 'articles' ||  this.table.title == 'events'
+    filtersPanel() {
+      if(!this.table.hasRequiredFilters){
+        return null
+      }
+      return 0
     },
-    hasCities(){
-      return   this.table.title == 'projects' ||  this.table.title == 'events'
-    },
-
+    
     from() {
       return (this.$data.page - 1) * this.$data.itemsPerPage + 1;
     },
@@ -229,8 +230,9 @@ export default Vue.extend({
     },
   },
   methods: {
-   
-    advancedSearch(event: any, key: string) {},
+    advancedSearch(event: any, key: string) {
+      console.log("search")
+    },
     currency: (x: number) => currency(x),
     filter() {
       // reset headers totals to avoid sum bug

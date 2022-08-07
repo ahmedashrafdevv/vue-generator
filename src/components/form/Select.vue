@@ -22,7 +22,7 @@
 <script lang="ts">
 import Vue from "vue";
 import Api from '@/utils/axios/Api';
-import { bus } from "@/main";
+import  bus  from "@/bus";
 const Http = Api.getInstance();
 export default Vue.extend({
   data(){

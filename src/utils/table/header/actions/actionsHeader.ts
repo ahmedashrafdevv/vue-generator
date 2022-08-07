@@ -1,18 +1,15 @@
-import DataTable  from '@/utils/datatable/components/datatable.vue'
 import { ActionsParamInterface } from './actionsInterface'
-import { Action } from '@/utils/datatable/datatableInterface'
+import { Action } from '@/utils/table/interface'
 import i18n from '@/i18n'
 import Vue from 'vue'
 import { Delete } from "@/repositories/global"
 import router from "@/router"
-import {Respond} from "@/repositories/requests"
-import ActionsComponent  from '@/utils/datatable/components/actions.vue'
-import store  from '@/store'
-import { bus } from '@/main'
+import ActionsComponent  from '@/components/table/actions.vue'
+import bus from '@/bus'
 export default class ActionsHeader{ 
   table:string
   text: string = i18n.t('actions').toString()
-  key: string = ''
+  key = ''
   isImage?: boolean = false
   total?: number = 0
   actions: Action[] = []
@@ -26,11 +23,10 @@ export default class ActionsHeader{
     if (actions.approve) this.actions.push(this._approveAction())
     if (actions.decline) this.actions.push(this._declineAction())
     if (actions.pend) this.actions.push(this._pendAction())
-    if (actions.respond) this.actions.push(this._respondAction())
   }
   
   private _editAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'edit',
       icon : 'mdi-file-edit-outline',
       method : this.edit,
@@ -39,7 +35,7 @@ export default class ActionsHeader{
   }
 
   private _approveAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'approve',
       icon : 'mdi-thumb-up-outline',
       method : this.approve,
@@ -47,26 +43,19 @@ export default class ActionsHeader{
     return action
   }
   private _pendAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'pend',
       icon : 'mdi-briefcase-clock-outline',
       method : this.pend,
     }
     return action
   }
-  private _respondAction :() => Action = () => {
-    let action : Action = {
-      title : 'respond',
-      icon : 'mdi-briefcase-clock-outline',
-      method : this.openResponModal,
-    }
-    return action
-  }
+  
 
   
 
   private _declineAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'decline',
       icon : 'mdi-close-circle-outline',
       method : this.decline,
@@ -75,7 +64,7 @@ export default class ActionsHeader{
   }
 
   private _viewAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'view',
       icon : 'mdi-eye-outline',
       method : this.view,
@@ -83,7 +72,7 @@ export default class ActionsHeader{
     return action
   }
   private _deleteAction :() => Action = () => {
-    let action : Action = {
+    const action : Action = {
       title : 'delete',
       icon : 'mdi-delete-outline',
       method : this.delete,
@@ -91,10 +80,6 @@ export default class ActionsHeader{
     return action
   }
 
-  public openResponModal = (item : any) => {
-    let st = store as unknown as any
-    st.commit('ui/respondModal' , {status: true ,id: item.UserId})
-  }
   public delete = (item : any) => {
     Delete({table : this.table ,id : item.Id}).then((res:any) => {
       bus.$emit('getTableData');
@@ -108,9 +93,9 @@ export default class ActionsHeader{
 
 
   public respond = (item: any , action: string ) => {
-    Respond(item.Id , this.table , action).then((res : any) => {
-      bus.$emit('getTableData');
-    })
+    // Respond(item.Id , this.table , action).then((res : any) => {
+    //   bus.$emit('getTableData');
+    // })
   }
   public approve = (item : any) => {
     this.respond(item ,'approved')
@@ -126,7 +111,7 @@ export default class ActionsHeader{
     router.push({name : `${router.currentRoute.name}-view` , params:{id : item.Id}})
   }
   public  generateColumnHtml(item : any) {
-    let c  = Vue.extend(ActionsComponent)
+    const c  = Vue.extend(ActionsComponent)
     return c
   }
 }

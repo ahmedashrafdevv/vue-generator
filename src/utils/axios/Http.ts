@@ -4,9 +4,9 @@
 // and finally do some error
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 
-declare module 'axios' {
-  interface AxiosResponse<T = any> extends Promise<T> { }
-}
+// declare module 'axios' {
+//   type AxiosResponse<T = any> = Promise<T>
+// }
 
 export default abstract class HttpClient {
   protected readonly instance: AxiosInstance;
