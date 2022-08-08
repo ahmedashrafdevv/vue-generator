@@ -101,7 +101,7 @@ export default Vue.extend({
     });
     bus.$on("changeStateAppForm", () => {
       this.loading = true;
-        this.loading = false;
+      this.loading = false;
     });
     bus.$on("validateAppForm", () => {
      const ref = this.$refs.appForm as any;
