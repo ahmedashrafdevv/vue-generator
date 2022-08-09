@@ -1,4 +1,4 @@
-import Form from "../form/form";
+import Form from "@/utils/form/form";
 import { HeaderInterface } from "./header/headerInterface";
 
 

@@ -1,4 +1,4 @@
-import EditAddInterface from './editAddInterface'
+import {EditAddInterface} from '@/types'
 import Form from '../form/form'
 import Api from '../axios/Api';
 import bus from '@/bus'
@@ -9,6 +9,7 @@ export default class EditAdd {
     title: string
     table: string
     form: Form
+    editForm: Form
     id?: number
     loading: boolean = false
     error: boolean = false
@@ -21,19 +22,20 @@ export default class EditAdd {
         this.id = details.id
         if (this.isEdit) this.find()
         if (details.callBack) this.callBack = details.callBack
+        this.editForm = (typeof details.editForm != 'undefined') ? details.editForm : details.form
 
     }
     // find the record from the api
     public find() {
         return new Promise((resolve, reject) => {
-            this.form.loading = true
+            this.editForm.loading = true
             this.loading = true
             let url = `${this.table}/${this.id}`
             // use the axios base class to send the request to the server with generated url
             Http.get<any>(url)
                 .then((res) => {
-                    this.form.state = res
-                    this.form.loading = false
+                    this.editForm.state = res
+                    this.editForm.loading = false
                     this._reset()
                     bus.$emit('changeStateAppForm' , res)
                     resolve(res)

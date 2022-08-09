@@ -1,4 +1,4 @@
-import Form from "../form/Form";
+import Form from "@/utils/form/form";
 
 export default interface ViewInterface {
     title: string

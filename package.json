@@ -1,6 +1,6 @@
 {
   "name": "vue-nozom",
-  "version": "0.3.3",
+  "version": "0.3.5",
   "private": false,
   "description": "Plugin to generate forms and datatables automatically with fetching data from api",
   "author": {
@@ -12,12 +12,12 @@
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "build-library": "vue-cli-service build --target lib --name vue-nozom ./src/install.ts",
     "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
-  "main": ".dist/vue-nzom.common.ts",
+  "main": ".dist/vue-nzom.common.js",
   "files": [
-    "dist"
+    "dist",
+    "types.ts"
   ],
   "dependencies": {
     "core-js": "^3.6.5",

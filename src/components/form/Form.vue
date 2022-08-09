@@ -61,7 +61,7 @@
 <script lang="ts">
 import Form from "@/utils/form/form";
 import Vue from "vue";
-import { InputInterface } from "@/utils/form/interface";
+import { InputInterface } from "@/types";
 import  bus from "@/bus";
 export default Vue.extend({
   props: {

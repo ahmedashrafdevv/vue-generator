@@ -6,6 +6,7 @@
     :item-text="input.text"
     :item-value="input.valueKey"
     :items="input.items"
+    :disabled="input.disabled"
     :rules="input.rules ? input.rules : []"
     :loading="loading"
     :prepend-icon="input.icon"

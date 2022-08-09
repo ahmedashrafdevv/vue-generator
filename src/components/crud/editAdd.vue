@@ -1,7 +1,7 @@
 <template>
 <div class="py-12">
   <v-container>
-    <app-form :form="d.form">
+    <app-form :form="activeForm">
       <template v-slot:form-submit>
         <v-col cols="12">
           <v-btn  class="app-btn" @click.prevent="submit()">{{$t('submit')}}</v-btn>
@@ -24,6 +24,14 @@ export default {
          required: true,
          type:EditAdd
      }
+ },
+ computed:{
+   activeForm(){
+    if (this.$route.params.id) {
+     return this.d.editForm
+    }
+    return this.d.form
+   }
  },
  methods:{
     async submit(){

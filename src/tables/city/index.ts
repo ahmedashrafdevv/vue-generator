@@ -1,5 +1,9 @@
-import { HeaderInterface } from '@/utils/table/header/headerInterface';
-import DatatableIntetrface , {Action} from '@/utils/table/interface'
+// import { HeaderInterface } from '@/types.d';
+import {
+  Action ,
+  DatatableIntetrface ,
+  HeaderInterface,
+ } from '@/types'
 import TextHeader from '@/utils/table/header/textHeader';
 import ActionsHeader from '@/utils/table/header/actions/actionsHeader';
 import Datatable  from '@/utils/table/table'
