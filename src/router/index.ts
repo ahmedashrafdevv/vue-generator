@@ -32,12 +32,12 @@ const routes: Array<RouteConfig> = [
         component: () => import("@/views/items/editAdd.vue"),
       },
       {
-        path: "/categories/",
+        path: "/categories",
         name: "categories-index",
         component: () => import("@/views/categories/index.vue"),
         children: [
           {
-            path: "/",
+            path: "create",
             name: "categories-create",
             component: () => import("@/views/categories/editAdd.vue"),
           },

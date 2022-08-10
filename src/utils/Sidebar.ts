@@ -20,7 +20,7 @@ export default [
     title: "sidebar.categories",
     children: [
       {
-        icon: "mdi-graph-outline",
+        icon: "mdi-eye-outline",
         title: "sidebar.view",
         to: `categories-create`,
       },

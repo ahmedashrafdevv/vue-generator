@@ -33,6 +33,7 @@
         >
           <component
             v-show="typeof input.field.hidden == 'undefined'"
+            :ref="input.field.name"
             :is="input.field.generateInputHtml()"
             v-model="form.state[input.field.name]"
             :input="input.field"
@@ -101,6 +102,16 @@ export default Vue.extend({
     });
     bus.$on("changeStateAppForm", () => {
       this.loading = true;
+      this.loading = false;
+    });
+    
+    bus.$on("changeFormFocus", (payload : string) => {
+      // this.$refs[payload]!.focus()
+      console.log(this.$refs[payload])
+    });
+     bus.$on("changeFormStateKey", (payload : any) => {
+      this.loading = true;
+      this.form.state[payload.key as keyof typeof this.form.state] = payload.value
       this.loading = false;
     });
     bus.$on("validateAppForm", () => {

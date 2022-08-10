@@ -1,5 +1,4 @@
-import router from "@/router";
-import categoryForm from "@/forms/groupTable";
+import form from "@/forms/groupTable";
 import EditAdd from "@/utils/crud/editAdd";
 import EditAddInterface from "@/utils/crud/editAddInterface";
 
@@ -9,7 +8,7 @@ const callBack = (form: any) => {
 const editAddInterface: EditAddInterface = {
   title: "groups",
   table: "groupTable",
-  form: categoryForm,
+  form,
   callBack,
 };
 const editAddCategory = new EditAdd(editAddInterface);

@@ -1,4 +1,6 @@
 <template>
+<div>
+
   <v-combobox
     @change="change"
     @click:clear="change"
@@ -7,6 +9,7 @@
     :item-value="input.valueKey"
     :items="input.items"
     :disabled="input.disabled"
+    :readonly="input.disabled"
     :rules="input.rules ? input.rules : []"
     :loading="loading"
     :prepend-icon="input.icon"
@@ -19,6 +22,7 @@
     :label="$t(input.label)"
     single-line
   ></v-combobox>
+</div>
 </template>
 
 <script lang="ts">
@@ -37,6 +41,12 @@ export default Vue.extend({
   props: {
     input: Object,
 
+  },
+  watch:{
+    "input": (value) =>{
+      console.log("value")
+      console.log(value)
+    }
   },
   methods:{
       change(val:any){
@@ -64,6 +74,12 @@ export default Vue.extend({
     bus.$on("changeStateAppForm", (state:any) => {
         this.setModel(state[this.input.name])
     });
+    bus.$on("changeFormStateKey", (payload:any) => {
+      if (payload.key == this.input.name) {
+        this.setModel(payload.value)
+      }
+    });
+    
     bus.$on("getGroupsTree", (state:any) => {
         this.getData()
     });

@@ -48,6 +48,9 @@ export const convertToRequred = (input: InputInterface) => {
 export const convertToDisabled = (input: InputInterface , value : boolean = true) => {
   const req = { ...input }
   req.disabled = value
-  if(value) req.rules = []
+  if(value){
+     req.rules = []
+     req.required = false
+  }
   return req
 }

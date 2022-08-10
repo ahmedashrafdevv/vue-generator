@@ -26,29 +26,34 @@
           >
             {{$t('no_categories')}}
           </v-alert>
-          <v-treeview
-            transition
-            v-else
-            rounded
-            :search="search"
-            hoverable
-            item-key="name"
-            :items="groups"
-          >
-            <template v-slot:append="{ item }">
-              <v-icon
-                v-for="(action, index) in actions"
-                class="mx-2"
-                :key="index"
-                @click.prevent="action.clickAction(item)"
+          <v-card v-else class="my-5">
+            <v-card-text>
+              <v-treeview
+                transition
+                rounded
+                :search="search"
+                hoverable
+                item-key="name"
+                :items="groups"
               >
-                {{ action.icon }}
-              </v-icon>
-            </template>
-          </v-treeview>
+                <template v-slot:append="{ item }">
+                  <v-icon
+                    v-for="(action, index) in actions"
+                    class="mx-2"
+                    :key="index"
+                    @click.prevent="action.clickAction(item)"
+                  >
+                    {{ action.icon }}
+                  </v-icon>
+                </template>
+              </v-treeview>
+
+            </v-card-text>
+          </v-card>
         </v-col>
         <v-col cols="6" class="no-padding">
-          <router-view class="no-padding"/>
+          
+          <router-view  class="no-padding"/>
         </v-col>
       </v-row>
     </v-container>
@@ -71,7 +76,6 @@ export default {
         {
           icon: "mdi-square-edit-outline",
           clickAction: (item: groupsHierarchyResponse) => {
-            console.log(item)
             if (
               route.name == "categories-edit" &&
               route.params.id == item.groupCode.toString()
@@ -91,6 +95,13 @@ export default {
             openDialog("Warning", "mmms");
           },
         },
+        {
+          icon: "mdi-plus-circle-outline",
+          clickAction: (item: groupsHierarchyResponse) => {
+           bus.$emit('changeFormStateKey' , {key : "parentCode" , value : item.code})
+           bus.$emit('changeFormFocus' , "groupName")
+          },
+        },
       ],
       groups: [] as groupsHierarchyResponse[],
     };
@@ -99,8 +110,8 @@ export default {
     getData() {
       this.loading = true
       ListHierarchy().then((res: groupsHierarchyResponse[]) => {
-        if (res.length == 0 && route.name == "items-groups-edit"){
-          router.push("items-groups");
+        if (res.length == 0 && route.name == "categories-edit"){
+          router.push({name : "categories-create"});
         }
         this.loading = false
         this.groups = res;

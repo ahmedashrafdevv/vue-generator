@@ -15,9 +15,15 @@
 import AppForm from '@/components/form/Form.vue'
 import EditAdd from '@/utils/crud/editAdd'
 import bus from "@/bus";
+import router from '@/router'
 // import {snackBar} from '@/utils/Helpers'
 export default {
- 
+  data(){
+   let activeForm = this.d.form
+   return{
+     activeForm
+   }
+ },
   
  props:{
      d:{
@@ -25,29 +31,35 @@ export default {
          type:EditAdd
      }
  },
- computed:{
-   activeForm(){
-    if (this.$route.params.id) {
-     return this.d.editForm
-    }
-    return this.d.form
-   }
+ watch:{
+  '$route.params.id': {
+        handler: function(id) {
+          if (id) {
+            this.activeForm = this.d.editForm
+          } else {
+            this.activeForm = this.d.form
+          }
+        },
+        deep: true,
+        immediate: true
+      }
  },
+ 
  methods:{
     async submit(){
-      const isFormValid = await this.d.form.validate()
+      const isFormValid = await this.activeForm.validate()
       if(!isFormValid){
         return
       }
 
-       this.d.submit().then(res => {
+       this.d.submit().then((res : any) => {
          if(this.d.callBack != null){
-           this.d.callBack(this.d.form.state)
+           this.d.callBack(this.activeForm.state)
          } else {
            this.$router.back()
          }
-       }).catch(e => {
-         this.d.form.error = e
+       }).catch((e : any) => {
+         this.activeForm.error = e
        })
     }
   },
@@ -55,8 +67,8 @@ export default {
      "app-form":AppForm
  },
  async created(){
-   if (this.$route.params.id) {
-     await this.d.setId(parseInt(this.$route.params.id))
+   if (router.currentRoute.params.id) {
+     await this.d.setId(parseInt(router.currentRoute.params.id))
    }
    bus.$on("editAddFind", async (id : number) => {
       await this.d.setId(id)

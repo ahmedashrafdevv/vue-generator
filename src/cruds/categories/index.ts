@@ -1,13 +1,13 @@
 import router  from '@/router';
 import bus from '@/bus';
-import categoryForm from '@/forms/groups';
+import categoryForm from '@/forms/categories';
 import EditAdd from '@/utils/crud/editAdd';
 import { EditAddInterface } from '@/types';
 
 const callBack = (form:any) => {
     bus.$emit("getGroupsTree")
-    if(router.currentRoute.name == 'items-groups-edit'){
-        router.push({name : 'items-groups-create'})
+    if(router.currentRoute.name == 'categories-edit'){
+        router.push({name : 'categories-create'})
     }
 }
 const editAddInterface :EditAddInterface = {

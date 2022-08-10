@@ -56,7 +56,6 @@ export default class EditAdd {
     }
 
     public submit(): Promise<any> {
-
         let url = `${this.table}/editadd`
         type Method = 'post' | 'put';
         let method: Method = 'post'
@@ -64,15 +63,14 @@ export default class EditAdd {
             url += `/${this.id}`
             method = 'put'
         }
+        const state = this.isEdit ? this.editForm.state : this.form.state
         return new Promise((resolve, reject) => {
-            Http[method](url, this.form.state).then(res => {
+            Http[method](url, state).then(res => {
                 bus.$emit('resetAppForm')
                 const msg = this.isEdit ? "item_updated_succesfully" : "item_added_succesfully"
                 // openSnack("success" , i18n.t(msg).toString())
                 this._reset()
                 this.resetEdit()
-                
-
                 return resolve(res)
             }).catch(e => {
                 return reject(e)

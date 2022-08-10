@@ -16,13 +16,13 @@ import Api from "@/utils/axios/Api";
 const Http = Api.getInstance();
 
 const inputs: Input[] = [
-  new Input(logo),
-  new Input(color),
   new Input(darkBg),
   new Input(lightBg),
   new Input(title),
   new Input(description),
   new Input(keywords),
+  new Input(color),
+  new Input(logo),
   new Input(cover),
   new Input(showEstimatedTime),
 ];

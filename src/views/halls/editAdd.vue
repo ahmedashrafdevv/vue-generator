@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-import EditAdd from "@/utils/crud/editAdd";
 import details from "@/cruds/groupTable";
 import EditAddComponent from "@/components/crud/editAdd.vue";
 export default {
@@ -15,8 +14,7 @@ export default {
   },
   computed: {
     d() {
-      const d = new EditAdd(details);
-      return d;
+      return details;
     },
   },
 };
