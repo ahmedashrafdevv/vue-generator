@@ -98,8 +98,15 @@ export default {
         {
           icon: "mdi-plus-circle-outline",
           clickAction: (item: groupsHierarchyResponse) => {
-           bus.$emit('changeFormStateKey' , {key : "parentCode" , value : item.code})
-           bus.$emit('changeFormFocus' , "groupName")
+          bus.$emit('resetAppForm')
+          bus.$emit('changeFormStateKey' , {key : "parentCode" , value : item.code})
+          //  bus.$emit('changeFormFocus' , "groupName")
+          let elem = document.querySelector('.v-input.groupName input')
+          elem.focus()
+          this.goToCreate()
+          console.log("elem")
+          // elem.focus()
+          console.log(elem)
           },
         },
       ],
@@ -110,13 +117,18 @@ export default {
     getData() {
       this.loading = true
       ListHierarchy().then((res: groupsHierarchyResponse[]) => {
-        if (res.length == 0 && route.name == "categories-edit"){
-          router.push({name : "categories-create"});
+        if (res.length == 0 ){
+          this.goToCreate()
         }
         this.loading = false
         this.groups = res;
       });
     },
+    goToCreate(){
+      if (route.name == "categories-edit"){
+          router.push({name : "categories-create"});
+        }
+    }
   },
   mounted() {
     this.getData();
